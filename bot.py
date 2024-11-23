@@ -15,7 +15,7 @@ intents.members = True
 # Create bot instance with intents
 bot = discord.Client(intents=intents)
 
-prefix = "!"
+prefix = "$"
 ALLOWED_ROLES = ["Admin", "Psychic Detective Shrimp Spencer", "Big Shrimp Burton", ]
 
 ALLOWED_COMMANDS = [
@@ -43,6 +43,15 @@ async def on_message(message):
 
     if message.content == f'{prefix}hello':
         await message.channel.send("WHAT SPENCER")
+
+    if message.content == f'{prefix}help':
+        commands = ""
+        for c in ALLOWED_COMMANDS:
+            commands += f'{c}\n'
+        await message.channel.send(commands)
+
+        
+
 
     if not has_allowed_role(message.author) and any(message.content.startswith(c) for c in ALLOWED_COMMANDS):
         await message.channel.send(file=discord.File('assets/come_on_son.gif'))
