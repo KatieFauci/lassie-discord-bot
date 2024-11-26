@@ -41,6 +41,10 @@ async def on_ready():
 @bot.event
 async def on_message(message):
 
+    if not has_allowed_role(message.author) and any(message.content.startswith(c) for c in ALLOWED_COMMANDS):
+        await message.channel.send(file=discord.File('assets/come_on_son.gif'))
+        return
+    
     if message.content == f'{prefix}hello':
         await message.channel.send("WHAT SPENCER")
 
@@ -50,12 +54,6 @@ async def on_message(message):
             commands += f'{c}\n'
         await message.channel.send(commands)
 
-        
-
-
-    if not has_allowed_role(message.author) and any(message.content.startswith(c) for c in ALLOWED_COMMANDS):
-        await message.channel.send(file=discord.File('assets/come_on_son.gif'))
-        return
 
     # Gets a PSYCH quote
     if message.content == f'{prefix}gimmiethatsweetknowledge':
