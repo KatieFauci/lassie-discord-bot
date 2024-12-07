@@ -16,9 +16,10 @@ intents.members = True
 bot = discord.Client(intents=intents)
 
 prefix = "$"
-ALLOWED_ROLES = ["Admin", "Psychic Detective Shrimp Spencer", "Big Shrimp Burton", ]
+ALLOWED_ROLES = ["Admin", "Psychic Detective Shrimp Spencer", "Big Shrimp Burton"]
 
 ALLOWED_COMMANDS = [
+    f'{prefix}help',
     f'{prefix}hello',
     f'{prefix}gimmiethatsweetknowledge',
     f'{prefix}shutit',
@@ -47,12 +48,14 @@ async def on_message(message):
     
     if message.content == f'{prefix}hello':
         await message.channel.send("WHAT SPENCER")
+        return
 
     if message.content == f'{prefix}help':
-        commands = ""
+        commands = "Prefix = $\n"
         for c in ALLOWED_COMMANDS:
-            commands += f'{c}\n'
+            commands += f'{c.strip("$")}\n'
         await message.channel.send(commands)
+        return
 
 
     # Gets a PSYCH quote
